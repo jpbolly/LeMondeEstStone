@@ -9,10 +9,10 @@ import {
   ActivityIndicator,
   Alert,
 } from 'react-native';
-import { useLocalSearchParams, router } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Sparkles, Info, BookOpen, Star, ArrowLeft, Plus, Check } from 'lucide-react-native';
-import { identifySpecimen, IdentificationResult } from '@/services/mlService';
-import { saveToCollection } from '@/services/storageService';
+import { identifySpecimen, IdentificationResult } from '../services/mlService';
+import { saveToCollection } from '../services/storageService';
 
 
 export default function IdentifyScreen() {
@@ -22,6 +22,8 @@ export default function IdentifyScreen() {
   const [result, setResult] = useState<IdentificationResult | null>(null);
   const [isAddingToCollection, setIsAddingToCollection] = useState(false);
   const [addedToCollection, setAddedToCollection] = useState(false);
+  const router = useRouter();
+
 
 
   useEffect(() => {
