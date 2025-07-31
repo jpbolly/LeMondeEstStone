@@ -1,0 +1,15 @@
+Basalt
+Clay
+Conglomerate
+Diatomite
+Shale
+Shale-(Mudstone)
+Siliceous
+Siliceous-sinter
+chert
+granite
+gypsum
+olivine
+olivine-basalt
+sandstone
+slate

@@ -13,13 +13,24 @@ import { useLocalSearchParams, router } from 'expo-router';
 import { Sparkles, Info, BookOpen, Star, ArrowLeft, Plus, Check } from 'lucide-react-native';
 import { identifySpecimen, IdentificationResult } from '@/services/mlService';
 import { saveToCollection } from '@/services/storageService';
+import * as FileSystem from 'expo-file-system';
+import { Asset } from 'expo-asset';
+
 
 export default function IdentifyScreen() {
+
   const { imageUri } = useLocalSearchParams();
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<IdentificationResult | null>(null);
   const [isAddingToCollection, setIsAddingToCollection] = useState(false);
   const [addedToCollection, setAddedToCollection] = useState(false);
+  const loadLabels = async (): Promise<string[]> => {
+  const asset = Asset.fromModule(require('../assets/models/labels.txt'));
+  await asset.downloadAsync();
+  const content = await FileSystem.readAsStringAsync(asset.localUri!);
+  return content.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+
+};
 
   useEffect(() => {
     if (imageUri && typeof imageUri === 'string') {
